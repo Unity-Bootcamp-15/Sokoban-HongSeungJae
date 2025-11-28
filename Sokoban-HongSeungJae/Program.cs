@@ -38,23 +38,44 @@
                 {
                     case ConsoleKey.LeftArrow:
 
-                        playerX--;
-                        break;
+                         playerX--;
+
+                         if (playerX < 0)
+                         {
+                             playerX++;
+                         }
+                             break;
+
 
                     case ConsoleKey.UpArrow:
 
                         playerY--;
-                        break;
+
+                        if(playerY < 0)
+                        {
+                            playerY++;
+                        }
+                            break;
 
                     case ConsoleKey.RightArrow:
 
                         playerX++;
-                        break;
+
+                        if(playerX > Console.WindowWidth -1)
+                        {
+                            playerX--;
+                        }
+                            break;
 
                     case ConsoleKey.DownArrow:
 
                         playerY++;
-                        break;
+
+                        if(playerY > Console.WindowHeight -1)
+                        {
+                            playerY--;
+                        }
+                            break;
 
                 }
             }
