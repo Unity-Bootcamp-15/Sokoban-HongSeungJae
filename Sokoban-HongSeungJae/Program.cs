@@ -14,14 +14,19 @@
 
             //게임 데이터 초기화
             string player = "@";
+            string wall = "#";
             int playerX = 5;
             int playerY = 10;
+            int wallX = 10;
+            int wallY = 10; 
 
 
             while (true)
             {
                 //Render
                 Console.Clear();
+                Console.SetCursorPosition(wallX, wallY);
+                Console.Write(wall);
                 Console.SetCursorPosition(playerX, playerY);
                 Console.Write(player);
 
