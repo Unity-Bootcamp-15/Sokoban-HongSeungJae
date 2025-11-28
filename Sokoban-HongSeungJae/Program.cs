@@ -4,7 +4,14 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+
+                Console.ResetColor();
+                Console.CursorVisible = false;
+                Console.Title = "SOKOBAN SEUNGJAE";
+                Console.BackgroundColor = ConsoleColor.Magenta;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Clear();
+
         }
     }
 }
