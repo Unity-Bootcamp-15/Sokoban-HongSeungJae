@@ -4,61 +4,51 @@
     {
         static void Main(string[] args)
         {
+            //콘솔 창 초기화
+            Console.ResetColor();
+            Console.CursorVisible = false;
+            Console.Title = "SOKOBAN SEUNGJAE";
+            Console.BackgroundColor = ConsoleColor.Magenta;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Clear();
 
-                Console.ResetColor();
-                Console.CursorVisible = false;
-                Console.Title = "SOKOBAN SEUNGJAE";
-                Console.BackgroundColor = ConsoleColor.Magenta;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Clear();
-
-            // ( x = 5 , y = 10 ) 위치에 플레이어 출력
+            //게임 데이터 초기화
             string player = "@";
-
             int playerX = 5;
             int playerY = 10;
 
-            Console.SetCursorPosition(playerX, playerY);
-            Console.Write(player);
 
             while (true)
             {
+                //Render
+                Console.Clear();
+                Console.SetCursorPosition(playerX, playerY);
+                Console.Write(player);
 
-                //아래 방향 키를 눌렀을때 플레이어 이동
-
+                // Process Input
                 ConsoleKeyInfo input = Console.ReadKey();
 
+                // Update
                 switch (input.Key)
                 {
-                    case ConsoleKey.DownArrow:
-                        Console.Clear();
-                        playerY++;
-                        Console.SetCursorPosition(playerX, playerY);
-                        Console.Write(player);
-                        break;
+                    case ConsoleKey.LeftArrow:
 
+                        playerX--;
+                        break;
 
                     case ConsoleKey.UpArrow:
-                        Console.Clear();
+
                         playerY--;
-                        Console.SetCursorPosition(playerX, playerY);
-                        Console.Write(player);
                         break;
-
-
-                    case ConsoleKey.LeftArrow:
-                        Console.Clear();
-                        playerX--;
-                        Console.SetCursorPosition(playerX, playerY);
-                        Console.Write(player);
-                        break;
-
 
                     case ConsoleKey.RightArrow:
-                        Console.Clear();
+
                         playerX++;
-                        Console.SetCursorPosition(playerX, playerY);
-                        Console.Write(player);
+                        break;
+
+                    case ConsoleKey.DownArrow:
+
+                        playerY++;
                         break;
 
                 }
