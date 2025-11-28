@@ -5,6 +5,7 @@
         static void Main(string[] args)
         {
             //콘솔 창 초기화
+            Console.SetWindowSize(30, 15);
             Console.ResetColor();
             Console.CursorVisible = false;
             Console.Title = "SOKOBAN SEUNGJAE";
@@ -38,27 +39,27 @@
                 {
                     case ConsoleKey.LeftArrow:
 
-                         playerX--;
+                        playerX--;
 
-                         if (playerX < 0)
-                         {
-                             playerX++;
-                         }
-                             break;
+                        if (playerX < 0)
+                        {
+                            playerX++;
+                        }
+                        break;
 
 
                     case ConsoleKey.UpArrow:
 
                         playerY--;
 
-                        if(playerY < 0)
+                        if (playerY < 0)
                         {
                             playerY++;
                         }
-                            break;
+                        break;
 
                     case ConsoleKey.RightArrow:
-
+                
                         playerX++;
 
                         if(playerX > Console.WindowWidth -1)
@@ -69,14 +70,36 @@
 
                     case ConsoleKey.DownArrow:
 
-                        playerY++;
+                    playerY++;
 
-                        if(playerY > Console.WindowHeight -1)
-                        {
-                            playerY--;
-                        }
+                    if (playerY > Console.WindowHeight - 1)
+                    {
+                        playerY--;
+                    }
+                    break;
+                }
+
+                bool isSamePlayerXAsWallX = playerX == wallX;
+                bool isSamePlayerYAsWallY = playerY == wallY;
+                bool isCollidedPlayerWithWall = isSamePlayerXAsWallX && isSamePlayerYAsWallY;
+
+                if (isCollidedPlayerWithWall)
+                {
+                    switch (input.Key)
+                    {
+                        case ConsoleKey.LeftArrow:
+                            playerX++;
                             break;
-
+                        case ConsoleKey.UpArrow:
+                            playerY++;
+                            break;
+                        case ConsoleKey.RightArrow:
+                            playerX--;
+                            break;
+                        case ConsoleKey.DownArrow:
+                            playerY--;
+                            break;
+                    }
                 }
             }
         }
