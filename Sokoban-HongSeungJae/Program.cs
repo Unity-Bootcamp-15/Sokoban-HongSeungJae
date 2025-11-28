@@ -6,19 +6,63 @@
         {
 
                 Console.ResetColor();
-                //Console.CursorVisible = false;
+                Console.CursorVisible = false;
                 Console.Title = "SOKOBAN SEUNGJAE";
                 Console.BackgroundColor = ConsoleColor.Magenta;
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Clear();
-                
-            for (int i = 0; i < 101; i++)
-            {
-                Console.SetCursorPosition(i, i);
-                Console.Write("o");
-            }
-                
 
+            // ( x = 5 , y = 10 ) 위치에 플레이어 출력
+            string player = "@";
+
+            int playerX = 5;
+            int playerY = 10;
+
+            Console.SetCursorPosition(playerX, playerY);
+            Console.Write(player);
+
+            while (true)
+            {
+
+                //아래 방향 키를 눌렀을때 플레이어 이동
+
+                ConsoleKeyInfo input = Console.ReadKey();
+
+                switch (input.Key)
+                {
+                    case ConsoleKey.DownArrow:
+                        Console.Clear();
+                        playerY++;
+                        Console.SetCursorPosition(playerX, playerY);
+                        Console.Write(player);
+                        break;
+
+
+                    case ConsoleKey.UpArrow:
+                        Console.Clear();
+                        playerY--;
+                        Console.SetCursorPosition(playerX, playerY);
+                        Console.Write(player);
+                        break;
+
+
+                    case ConsoleKey.LeftArrow:
+                        Console.Clear();
+                        playerX--;
+                        Console.SetCursorPosition(playerX, playerY);
+                        Console.Write(player);
+                        break;
+
+
+                    case ConsoleKey.RightArrow:
+                        Console.Clear();
+                        playerX++;
+                        Console.SetCursorPosition(playerX, playerY);
+                        Console.Write(player);
+                        break;
+
+                }
+            }
         }
     }
 }
