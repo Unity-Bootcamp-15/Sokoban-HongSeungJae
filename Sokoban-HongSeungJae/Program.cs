@@ -191,6 +191,35 @@
                             break;
                     }
                 }
+
+                //공이 맵을 벗어나는지 판정
+                bool isSameBallXAsBoundaryX = (ballX == Console.WindowWidth) || (ballX < 0);
+                bool isSameBallYAsBoundaryY = (ballY == Console.WindowHeight) || (ballY < 0);
+                bool isBallCollidedWithBoundary = isSameBallXAsBoundaryX || isSameBallYAsBoundaryY;
+
+                //공이 맵을 벗어났을 때 공과 플레이어가 제자리에 있도록 하는 기능
+                if (isBallCollidedWithBoundary)
+                {
+                    switch (input.Key)
+                    {
+                        case ConsoleKey.LeftArrow:
+                            playerX++;
+                            ballX++;
+                            break;
+                        case ConsoleKey.UpArrow:
+                            playerY++;
+                            ballY++;
+                            break;
+                        case ConsoleKey.RightArrow:
+                            playerX--;
+                            ballX--;
+                            break;
+                        case ConsoleKey.DownArrow:
+                            playerY--;
+                            ballY--;
+                            break;
+                    }
+                }
             }
         }
     }
