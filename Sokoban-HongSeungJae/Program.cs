@@ -106,13 +106,23 @@
                         break;
                 }
 
-                //플레이어가 벽에 충돌했는지 판정
-                bool[] isSamePlayerXAsWallX = [(playerX == wallX[0]), (playerX == wallX[1]), (playerX == wallX[2]), (playerX == wallX[3]), (playerX == wallX[4]), (playerX == wallX[5]), (playerX == wallX[6])];
-                bool[] isSamePlayerYAsWallY = [(playerY == wallY[0]), (playerY == wallY[1]), (playerY == wallY[2]), (playerY == wallY[3]), (playerY == wallY[4]), (playerY == wallY[5]), (playerY == wallY[6])];
-                bool[] isPlayerCollidedWithWall = [(isSamePlayerXAsWallX[0] && isSamePlayerYAsWallY[0]), (isSamePlayerXAsWallX[1] && isSamePlayerYAsWallY[1]), (isSamePlayerXAsWallX[2] && isSamePlayerYAsWallY[2]), (isSamePlayerXAsWallX[3] && isSamePlayerYAsWallY[3]), (isSamePlayerXAsWallX[4] && isSamePlayerYAsWallY[4]), (isSamePlayerXAsWallX[5] && isSamePlayerYAsWallY[5]), (isSamePlayerXAsWallX[6] && isSamePlayerYAsWallY[6])];
+                //플레이어가 벽 중 하나와 충돌했는지 판정
+                bool isPlayerCollidedWithAnyWall = false;
+
+                //플레이어 좌표와 벽 각각의 좌표 비교
+                bool[] isPlayerCollidedWithWall = new bool[wallX.Length];
+
+                for (int i = 0; i < wallX.Length; i++)
+                {
+                    //플레이어 좌표와 벽 각각의 좌표 비교
+                    isPlayerCollidedWithWall[i] = playerX == wallX[i] && playerY == wallY[i];
+
+                    //플레이어가 벽 중 하나와 충돌했는지 판정
+                    isPlayerCollidedWithAnyWall = isPlayerCollidedWithAnyWall || isPlayerCollidedWithWall[i];
+                }
 
                 //플레이어가 벽에 충돌했을 때 제자리에 있도록 하는 기능 
-                if (isPlayerCollidedWithWall[0] || isPlayerCollidedWithWall[1] || isPlayerCollidedWithWall[2] || isPlayerCollidedWithWall[3] || isPlayerCollidedWithWall[4] || isPlayerCollidedWithWall[5] || isPlayerCollidedWithWall[6])
+                if (isPlayerCollidedWithAnyWall)
                 {
                     switch (input.Key)
                     {
@@ -130,7 +140,7 @@
                             break;
                     }
                 }
-
+                
                 //플레이어가 공에 충돌했는지 판정
                 bool isSamePlayerXAsBallX = playerX == ballX;
                 bool isSamePlayerYAsBallY = playerY == ballY;
@@ -156,13 +166,23 @@
                     }
                 }
 
-                //공이 벽에 충돌했는지 판정
-                bool[] isSameBallXAsWallX = [(ballX == wallX[0]),(ballX == wallX[1]),(ballX == wallX[2]),(ballX == wallX[3]),(ballX == wallX[4]),(ballX == wallX[5]),(ballX == wallX[6])];
-                bool[] isSameBallYAsWallY = [(ballY == wallY[0]),(ballY == wallY[1]),(ballY == wallY[2]),(ballY == wallY[3]),(ballY == wallY[4]),(ballY == wallY[5]),(ballY == wallY[6])];
-                bool[] isBallCollidedWithWall = [(isSameBallXAsWallX[0] && isSameBallYAsWallY[0]), (isSameBallXAsWallX[1] && isSameBallYAsWallY[1]), (isSameBallXAsWallX[2] && isSameBallYAsWallY[2]), (isSameBallXAsWallX[3] && isSameBallYAsWallY[3]), (isSameBallXAsWallX[4] && isSameBallYAsWallY[4]), (isSameBallXAsWallX[5] && isSameBallYAsWallY[5]), (isSameBallXAsWallX[6] && isSameBallYAsWallY[6])];
+                //공이 벽 중 하나와 충돌했는지 판정
+                bool isBallCollidedWithAnyWall = false;
+
+                //공 좌표와 벽 각각의 좌표 비교
+                bool[] isBallCollidedWithWall = new bool[wallX.Length];
+
+                for (int i = 0; i < wallX.Length; i++)
+                {
+                    //공 좌표와 벽 각각의 좌표 비교
+                    isBallCollidedWithWall[i] = ballX == wallX[i] && ballY == wallY[i];
+
+                    //공이 벽 중 하나와 충돌했는지 판정
+                    isBallCollidedWithAnyWall = isBallCollidedWithAnyWall || isBallCollidedWithWall[i];
+                }
 
                 //공이 벽에 충돌했을 때 공과 플레이어가 제자리에 있도록 하는 기능
-                if (isBallCollidedWithWall[0]||isBallCollidedWithWall[1]||isBallCollidedWithWall[2]||isBallCollidedWithWall[3]||isBallCollidedWithWall[4]||isBallCollidedWithWall[5]||isBallCollidedWithWall[6])
+                if (isBallCollidedWithAnyWall)
                 {
                     switch (input.Key)
                     {
@@ -213,7 +233,6 @@
                             break;
                     }
                 }
-
 
                 //공이 목표에 도달했는지 판정
                 bool isSameBallXAsGoalX = ballX == goalX;
