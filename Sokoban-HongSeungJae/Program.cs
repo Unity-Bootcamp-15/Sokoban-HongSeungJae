@@ -35,7 +35,9 @@
             int wallX = 10;
             int wallY = 10;
 
-            while (true)
+            bool isGameEnded = false;
+
+            while (isGameEnded==false)
             {
                 //Render
                 Console.Clear();
@@ -51,18 +53,6 @@
 
                 Console.SetCursorPosition(wallX, wallY);
                 Console.Write(images[(int)Image.Wall]);
-
-                //공이 목표에 도달했는지 판정
-                bool isSameBallXAsGoalX = ballX == goalX;
-                bool isSameBallYAsGoalY = ballY == goalY;
-                bool isBallCollidedWithGoal = isSameBallXAsGoalX && isSameBallYAsGoalY;
-
-                //공이 목표에 도달했을 때 "YOU WIN" 출력
-                if (isBallCollidedWithGoal)
-                {
-                    Console.SetCursorPosition(12, 7);
-                    Console.Write("YOU WIN");
-                }
 
                 // 플레이어 방향키 입력 받기
                 ConsoleKeyInfo input = Console.ReadKey();
@@ -219,6 +209,21 @@
                             ballY--;
                             break;
                     }
+                }
+
+
+                //공이 목표에 도달했는지 판정
+                bool isSameBallXAsGoalX = ballX == goalX;
+                bool isSameBallYAsGoalY = ballY == goalY;
+                bool isBallCollidedWithGoal = isSameBallXAsGoalX && isSameBallYAsGoalY;
+
+                //공이 목표에 도달했을 때 "YOU WIN" 출력하고 게임 종료
+                if (isBallCollidedWithGoal)
+                {
+                    isGameEnded = true;
+                    Console.Clear();
+                    Console.SetCursorPosition(12, 7);
+                    Console.WriteLine("YOU WIN");
                 }
             }
         }
