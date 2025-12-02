@@ -5,6 +5,7 @@ namespace Sokoban_HongSeungJae
     public enum Image
     {
         Goal,
+        GoalIn,
         Player, 
         Ball, 
         Wall
@@ -25,7 +26,7 @@ namespace Sokoban_HongSeungJae
             Console.Clear();
 
             //게임 데이터 초기화
-            string[] images = ["@", "T", "o", "#"];
+            string[] images = ["O", "@", "T", "a", "#"];
 
             //스테이지에 따른 목표의 X좌표
             int[][] goalX = new int[2][];
@@ -77,8 +78,17 @@ namespace Sokoban_HongSeungJae
                 //스테이지에 따라 목표 출력
                 for (int i = 0; i < goalX[stage].Length; i++)
                 {
-                    Console.SetCursorPosition(goalX[stage][i], goalY[stage][i]);
-                    Console.Write(images[(int)Image.Goal]);
+                    if(goalX[stage][i] == ballX[stage][i])
+                    {
+                        Console.SetCursorPosition(goalX[stage][i], goalY[stage][i]);
+                        Console.Write(images[(int)Image.GoalIn]);
+                    }
+
+                    else
+                    {
+                        Console.SetCursorPosition(goalX[stage][i], goalY[stage][i]);
+                        Console.Write(images[(int)Image.Goal]);
+                    }   
                 }
 
                 //스테이지에 따라 플레이어 출력
@@ -254,6 +264,50 @@ namespace Sokoban_HongSeungJae
                         }
                     }
 
+                    //공이 다른 공과 충돌했는지 판정
+                    bool isBallCollidedWithOtherBall = false;
+
+                    //공과 다른 공의 좌표 비교
+                    bool[] isBallCollidedWithBall = new bool[ballX[stage].Length];
+
+                    for (int j = 0; j < ballX[stage].Length; j++)
+                    {
+                        if (i == j)
+                        {
+                            continue;
+                        }
+
+                        //공과 다른 공의 좌표 비교
+                        isBallCollidedWithWall[j] = ballX[stage][i] == ballX[stage][j] && ballY[stage][i] == ballY[stage][j];
+                        
+                        //공이 다른 공과 충돌했는지 판정
+                        isBallCollidedWithOtherBall = isBallCollidedWithAnyWall || isBallCollidedWithWall[j];
+                    }
+
+                    //공이 다른 공과 충돌했을 때 공과 플레이어가 제자리에 있도록 하는 기능
+                    if (isBallCollidedWithOtherBall)
+                    {
+                        switch (input.Key)
+                        {
+                            case ConsoleKey.LeftArrow:
+                                playerX[stage]++;
+                                ballX[stage][i]++;
+                                break;
+                            case ConsoleKey.UpArrow:
+                                playerY[stage]++;
+                                ballY[stage][i]++;
+                                break;
+                            case ConsoleKey.RightArrow:
+                                playerX[stage]--;
+                                ballX[stage][i]--;
+                                break;
+                            case ConsoleKey.DownArrow:
+                                playerY[stage]--;
+                                ballY[stage][i]--;
+                                break;
+                        }
+                    }
+
                     //공이 맵을 벗어나는지 판정
                     bool isSameBallXAsBoundaryX = (ballX[stage][i] == Console.WindowWidth) || (ballX[stage][i] < 0);
                     bool isSameBallYAsBoundaryY = (ballY[stage][i] == Console.WindowHeight) || (ballY[stage][i] < 0);
@@ -294,7 +348,7 @@ namespace Sokoban_HongSeungJae
                 {
                     for (int j = 0; j < goalX[stage].Length; j++)
                     {
-                            //공의 좌표와 목표의 좌표 비교, (공 개수 * 목표 개수)만큼 경우의 수 발생
+                        //공의 좌표와 목표의 좌표 비교
                         isBallCollidedWithGoal[i] = ballX[stage][i] == goalX[stage][j] && ballY[stage][i] == goalY[stage][j];
 
                         if (isBallCollidedWithGoal[i])
