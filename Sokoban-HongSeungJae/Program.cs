@@ -16,6 +16,7 @@ namespace Sokoban_HongSeungJae
         {
             //게임 데이터 초기화
             int stage = 0;
+            int numberOfStageToClearGame = 3;
             string[] images = ["O", "@", "T", "a", "#"];
 
             //콘솔 창 초기화
@@ -28,47 +29,54 @@ namespace Sokoban_HongSeungJae
             Console.Clear();
 
             //스테이지에 따른 목표의 X좌표
-            int[][] goalX = new int[2][];
-            goalX[0] = [15];
-            goalX[1] = [15, 15];
+            int[][] goalX = new int[3][];
+            goalX[0] = [6, 8, 9, 11];
+            goalX[1] = [12, 12, 12];
+            goalX[2] = [6, 6, 7, 7];
 
             //스테이지에 따른 목표의 Y좌표
-            int[][] goalY = new int[2][];
-            goalY[0] = [10];
-            goalY[1] = [10, 5];
+            int[][] goalY = new int[3][];
+            goalY[0] = [8, 5, 10, 7];
+            goalY[1] = [6, 7, 8];
+            goalY[2] = [8, 9, 8, 9];
 
             //스테이지에 따른 플레이어의 X좌표
-            int[] playerX = new int[2];
-            playerX[0] = 5;
-            playerX[1] = 5;
+            int[] playerX = new int[3];
+            playerX[0] = 9;
+            playerX[1] = 6;
+            playerX[2] = 6;
 
             //스테이지에 따른 플레이어의 Y좌표
-            int[] playerY = new int[2];
-            playerY[0] = 10;
-            playerY[1] = 10;
+            int[] playerY = new int[3];
+            playerY[0] = 8;
+            playerY[1] = 4;
+            playerY[2] = 7;
 
             //스테이지에 따른 공의 X좌표
-            int[][] ballX = new int[2][];
-            ballX[0] = [5];
-            ballX[1] = [5, 3];
+            int[][] ballX = new int[3][];
+            ballX[0] = [8, 8, 9, 10];
+            ballX[1] = [7, 7, 8];
+            ballX[2] = [6, 8, 10, 11];
 
             //스테이지에 따른 공의 Y좌표
-            int[][] ballY = new int[2][]; 
-            ballY[0] = [5];
-            ballY[1] = [5, 3];
+            int[][] ballY = new int[3][]; 
+            ballY[0] = [7, 8, 9, 7];
+            ballY[1] = [5, 6, 5];
+            ballY[2] = [6, 7, 8, 7];
 
             //스테이지에 따른 벽의 X좌표
-            int[][] wallX = new int[2][];
-            wallX[0] = [ 9, 9, 9, 9, 9, 9, 10 ];
-            wallX[1] = [ 10, 10, 10, 10, 10, 10, 11 ];
+            int[][] wallX = new int[3][];
+            wallX[0] = [5, 5, 5, 6, 6, 7, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 11, 11, 12, 12, 12 ];
+            wallX[1] = [5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 13, 13, 13, 13, 13, 13];
+            wallX[2] = [4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 10, 10, 11, 11, 11, 12, 12, 12, 12, 13, 13, 13, 13];
 
             //스테이지에 따른 벽의 Y좌표
-            int[][] wallY = new int[2][];
-            wallY[0] = [ 9, 8, 7, 6, 5, 4, 4 ];
-            wallY[1] = [ 8, 7, 6, 5, 4, 3, 3 ];
-
+            int[][] wallY = new int[3][];
+            wallY[0] = [7, 8, 9, 7, 9, 4, 5, 6, 7, 9, 4, 9, 10, 11, 4, 5, 6, 11, 6, 8, 9, 10, 11, 6, 8, 6, 7, 8 ];
+            wallY[1] = [3, 4, 5, 6, 7, 3, 7, 8, 9, 10, 11, 3, 7, 8, 11, 3, 11, 3, 4, 5, 6, 7, 11, 7, 9, 10, 11, 5, 6, 7, 10, 5, 10, 5, 6, 7, 8, 9, 10];
+            wallY[2] = [6, 7, 8, 9, 4, 5, 6, 9, 10, 4, 10, 4, 6, 10, 4, 6, 8, 9, 10, 4, 6, 10, 4, 10, 4, 5, 10, 5, 8, 9, 10, 5, 6, 7, 8];
             
-            while (stage < 2)
+            while (stage < numberOfStageToClearGame)
             {
                 //Render
                 Console.Clear();
