@@ -14,8 +14,10 @@ namespace Sokoban_HongSeungJae
     {
         static void Main()
         {
+            //게임 데이터 초기화
             int stage = 0;
-            
+            string[] images = ["O", "@", "T", "a", "#"];
+
             //콘솔 창 초기화
             Console.SetWindowSize(30, 15);
             Console.ResetColor();
@@ -24,9 +26,6 @@ namespace Sokoban_HongSeungJae
             Console.BackgroundColor = ConsoleColor.Magenta;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
-
-            //게임 데이터 초기화
-            string[] images = ["O", "@", "T", "a", "#"];
 
             //스테이지에 따른 목표의 X좌표
             int[][] goalX = new int[2][];
@@ -68,7 +67,7 @@ namespace Sokoban_HongSeungJae
             wallY[0] = [ 9, 8, 7, 6, 5, 4, 4 ];
             wallY[1] = [ 8, 7, 6, 5, 4, 3, 3 ];
 
-
+            
             while (stage < 2)
             {
                 //Render
@@ -78,29 +77,39 @@ namespace Sokoban_HongSeungJae
                 //스테이지에 따라 목표 출력
                 for (int i = 0; i < goalX[stage].Length; i++)
                 {
-                    if(goalX[stage][i] == ballX[stage][i])
-                    {
-                        Console.SetCursorPosition(goalX[stage][i], goalY[stage][i]);
-                        Console.Write(images[(int)Image.GoalIn]);
-                    }
-
-                    else
-                    {
-                        Console.SetCursorPosition(goalX[stage][i], goalY[stage][i]);
-                        Console.Write(images[(int)Image.Goal]);
-                    }   
+                    Console.SetCursorPosition(goalX[stage][i], goalY[stage][i]);
+                    Console.Write(images[(int)Image.Goal]);
                 }
 
-                //스테이지에 따라 플레이어 출력
-                Console.SetCursorPosition(playerX[stage], playerY[stage]);
-                Console.Write(images[(int)Image.Player]);
-                
                 //스테이지에 따라 공 출력
                 for (int i = 0; i < ballX[stage].Length; i++)
                 {
                     Console.SetCursorPosition(ballX[stage][i], ballY[stage][i]);
                     Console.Write(images[(int)Image.Ball]);
                 }
+
+                //공이 도달한 목표 출력
+                bool[] isThereGoalIn = new bool[ballX[stage].Length];
+
+                for (int i = 0; i < ballX[stage].Length; i++)
+                {
+                    for (int j = 0; j < goalX[stage].Length; j++)
+                    {
+                        //공의 좌표와 목표의 좌표 비교
+                        isThereGoalIn[i] = ballX[stage][i] == goalX[stage][j] && ballY[stage][i] == goalY[stage][j];
+
+                        if (isThereGoalIn[i])
+                        {
+                            Console.SetCursorPosition(goalX[stage][j], goalY[stage][j]);
+                            Console.Write(images[(int)Image.GoalIn]);
+                            break;
+                        }
+                    }
+                }
+
+                //스테이지에 따라 플레이어 출력
+                Console.SetCursorPosition(playerX[stage], playerY[stage]);
+                Console.Write(images[(int)Image.Player]);
 
                 //스테이지에 따라 벽 출력
                 for (int i = 0; i < wallX[stage].Length; i++)
